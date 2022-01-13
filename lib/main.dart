@@ -50,7 +50,31 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: buildField(),
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(FontAwesomeIcons.circle,),
+                  Text('のターンです'),
+                ],
+              ),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide()
+                ),
+                onPressed: () {
+
+                },
+                child: Text('クリア')
+              )
+            ],
+          ),
+          buildField(),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
@@ -61,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Column buildField() {
     // 縦の3列を作成するためのリスト
-    List<Widget> _columnChildren = [];
+    List<Widget> _columnChildren = [Divider(height: 0.0, color: Colors.black,)];
     // 横の3行を作成するためのリスト
     List<Widget> _rowChildren = [];
 
@@ -92,9 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-//todo フィールドのUIを作成
-//todo フィールドのUI作成をメソッドｗお用いて簡潔に
-//todo ターンの表示とクリアボタンの作成
 //todo マス目をタップ可能にして、タップ時にターン切り替え
 //todo マス目をタップで〇✕を表示
 //todo ゲームの勝敗のパターンを書き出す
