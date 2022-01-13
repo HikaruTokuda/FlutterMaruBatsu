@@ -94,16 +94,18 @@ class _MyHomePageState extends State<MyHomePage> {
       for (int i = 0; i < 3; i++) {
         _rowChildren.add(
             Expanded(
-                child: AspectRatio(
-                    aspectRatio: 1.0,
-                    child: i == 2
-                        ? Container()
-                        : Row(
-                      children: [
-                        Expanded(child: Container()),
-                        VerticalDivider(width: 0.0, color: Colors.black,),
-                      ],
-                    )
+                child: InkWell(
+                  child: AspectRatio(
+                      aspectRatio: 1.0,
+                      child: i == 2
+                          ? Container()
+                          : Row(
+                        children: [
+                          Expanded(child: Container()),
+                          VerticalDivider(width: 0.0, color: Colors.black,),
+                        ],
+                      )
+                  ),
                 )
             )
         );
