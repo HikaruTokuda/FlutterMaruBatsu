@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'model.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -30,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool turnOfCircle = true;
+  List<PieceStatus> statusList = List.filled(9, PieceStatus.none);
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +61,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide()
-                ),
-                onPressed: () {
-                },
-                child: Text('クリア')
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide()
+                  ),
+                  onPressed: () {
+                  },
+                  child: Text('クリア')
               )
             ],
           ),
@@ -82,11 +85,16 @@ class _MyHomePageState extends State<MyHomePage> {
     for(int h = 0; h < 3; h++) {
       // 横の3行を生成
       for (int i = 0; i < 3; i++) {
+        int _index = h * 3 + i;
         _rowChildren.add(
             Expanded(
                 child: InkWell(
                   onTap: (){
-                    turnOfCircle = !turnOfCircle;
+                    if(statusList[_index] == PieceStatus.none) {
+                      statusList[_index] = turnOfCircle ? PieceStatus.circle : PieceStatus.cross;
+                      turnOfCircle = !turnOfCircle;
+                    }
+
                     setState(() {});
                   },
                   child: AspectRatio(
@@ -95,7 +103,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           ? Container()
                           : Row(
                         children: [
-                          Expanded(child: Container()),
+                          Expanded(
+                              child: buildContainer(statusList[_index])
+                          ),
                           VerticalDivider(width: 0.0, color: Colors.black,),
                         ],
                       )
@@ -110,9 +120,28 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return Column(children: _columnChildren,);
   }
+
+  Container buildContainer(PieceStatus pieceStatus) {
+    switch(pieceStatus) {
+      case PieceStatus.none:
+        return Container();
+        break;
+      case PieceStatus.circle:
+        return Container(
+          child: Icon(FontAwesomeIcons.circle, size: 60, color: Colors.blue,),
+        );
+        break;
+      case PieceStatus.cross:
+        return Container(
+          child: Icon(Icons.clear, size: 60, color: Colors.red,),
+        );
+        break;
+      default:
+        return Container();
+    }
+  }
 }
 
-//todo マス目をタップで〇✕を表示
 //todo ゲームの勝敗のパターンを書き出す
 //todo ゲームの勝敗を判定可能に
 //todo リセットボタンタップでリスタート可能に
