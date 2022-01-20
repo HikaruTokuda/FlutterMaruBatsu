@@ -1,3 +1,5 @@
+import 'dart:core';
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -33,6 +35,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool turnOfCircle = true;
   List<PieceStatus> statusList = List.filled(9, PieceStatus.none);
+  GameStatus gameStatus = GameStatus.play;
+  finla List<List<int>> settlementListHorizontal = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8]
+  ];
 
   @override
   Widget build(BuildContext context) {
